@@ -9,8 +9,13 @@
 
 @using (Html.BeginForm())
 {
+    //adds a summary validation to the user
+    //displays error msgs registered with modelState in action method MakeBooking
+    //class validation-summary-errors is added to the wrapping div
+    @Html.ValidationSummary()
     <p>Your name: @Html.EditorFor(m => m.ClientName)</p>
     <p>Date of the appointment: @Html.EditorFor(m => m.Date)</p>
     <p>@Html.EditorFor(m => m.TermsAccepted) I accept terms & conditions</p>
+    //helpers add input-Validation-Error class to corresponding properties 
     <input type="submit" value="Make Booking"/>
 }
