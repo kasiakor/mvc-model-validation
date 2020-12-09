@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelValidation.Infrastructure;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ModelValidation.Models
@@ -13,7 +14,10 @@ namespace ModelValidation.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Then date is obligatory")]
         public DateTime Date { get; set; }
-        [Range(typeof(bool), "true", "true", ErrorMessage ="The box must be ticked")]
+        
+        //[Range(typeof(bool), "true", "true", ErrorMessage ="The box must be ticked")]
+        //add custom validation attribute
+        [MustBeTrue(ErrorMessage = "You must accept the terms")]
         public bool TermsAccepted { get; set; }
 
     }
