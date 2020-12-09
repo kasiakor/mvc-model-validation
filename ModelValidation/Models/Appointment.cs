@@ -1,6 +1,7 @@
 ﻿using ModelValidation.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace ModelValidation.Models
 {
@@ -15,6 +16,10 @@ namespace ModelValidation.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Then date is obligatory")]
         //[AssertThat("Date > Now()")] - expressive annotations package
+
+
+        //used for remote validation, client-side
+        [Remote("ValidateDate", "Home")]
         public DateTime Date { get; set; }
  
         

@@ -16,19 +16,19 @@ namespace ModelValidation.Controllers
         public ActionResult MakeBooking(Appointment appo)
         {
 
-            if(string.IsNullOrEmpty(appo.ClientName))
+            if (string.IsNullOrEmpty(appo.ClientName))
             {
                 //ClientName - name of the property
                 ModelState.AddModelError("ClientName", "Please enter client name");
             }
 
-            if(ModelState.IsValidField("Date") && DateTime.Now > appo.Date)
+            if (ModelState.IsValidField("Date") && DateTime.Now > appo.Date)
             {
                 //can value be parsed?
                 ModelState.AddModelError("Date", "Please enter future date");
             }
 
-            if(!appo.TermsAccepted)
+            if (!appo.TermsAccepted)
             {
                 ModelState.AddModelError("TermsAccepted", "Please accept terms & conditions");
             }
@@ -47,5 +47,25 @@ namespace ModelValidation.Controllers
                 return View();
             }
         }
+            //JsonResult must be returned from remove cline side validation
+            //Ajax request
+            public JsonResult ValidateDate(string Date)
+            {
+                DateTime parsedDate;
+
+                if (!DateTime.TryParse(Date, out parsedDate))
+                {
+                    return Json("Please enter a valid date", JsonRequestBehavior.AllowGet);
+                }
+                else if (DateTime.Now > parsedDate)
+                {
+                    return Json("Please enter future date", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    //true if the value meets requirements
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
     }
-}
